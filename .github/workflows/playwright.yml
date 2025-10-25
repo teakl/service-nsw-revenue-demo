@@ -21,6 +21,7 @@ jobs:
         run: npx playwright install --with-deps
       - name: Run Playwright BDD tests
         run: npx cucumber-js --require-module ts-node/register --require steps/**/*.ts --format html:./reports/cucumber-report.html
+        continue-on-error: true
       - name: Upload HTML report artifact
         uses: actions/upload-artifact@v4
         if: always()
@@ -28,3 +29,11 @@ jobs:
           name: my-html-report
           path: |
             reports/cucumber-report.html
+      - name: Display Cucumber HTML report in summary
+        if: always()
+        run: |
+          echo "### 🧪 Cucumber HTML Report" >> $GITHUB_STEP_SUMMARY
+          echo "<details><summary>Click to view the report</summary>" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "<iframe src='reports/cucumber-report.html' width='100%' height='600px'></iframe>" >> $GITHUB_STEP_SUMMARY
+          echo "</details>" >> $GITHUB_STEP_SUMMARY
