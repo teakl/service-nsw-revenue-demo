@@ -20,4 +20,10 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright BDD tests
-        run: npx cucumber-js --require-module ts-node/register --require steps/**/*.ts
+        run: npx cucumber-js --require-module ts-node/register --require steps/**/*.ts --format html:./reports/cucumber-report.html
+      - name: Upload HTML report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-html-report
+          path: |
+            reports/cucumber-report.html

@@ -1,0 +1,18 @@
+Feature: Check Motor Vehicle Stamp Duty # features/checkStampDuty.feature:1
+
+  Scenario: Verify duty calculation for a passenger vehicle # features/checkStampDuty.feature:3
+    Given I open the Service NSW motor vehicle stamp duty page
+    When I click the "Check online" button
+    Then the Revenue NSW calculator page should be displayed
+    When I select "Yes" for passenger vehicle
+    And I enter "35000" as the vehicle price
+    And I click the "Calculate" button
+    Then I should see the popup window showing "Duty payable $1,050.00"
+    ✖ failed
+      locator.waitFor: Timeout 20000ms exceeded.
+      Call log:
+      [2m  - waiting for locator('.modal-body').locator('tr').filter({ hasText: 'Duty payable' }) to be visible[22m
+
+          at RevenueNswCalculatorsPage.verifyPopupContains (/Users/nguyentran/Documents/Teak Ly/Code/Service.NSW.Revenue.Demo/pages/revenueNswCalculatorsPage.ts:39:20)
+          at World.<anonymous> (/Users/nguyentran/Documents/Teak Ly/Code/Service.NSW.Revenue.Demo/steps/checkStampDuty.steps.ts:57:23)
+
